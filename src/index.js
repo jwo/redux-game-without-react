@@ -166,6 +166,18 @@ document.body.addEventListener('keydown', function(event){
     store.dispatch({ type: 'MOVE', direction: 'DOWN' })
     break;
   }
+})
 
 
+document.querySelector(".btn.up").addEventListener('click', (e) => {
+  store.dispatch({type: 'MOVE', direction: 'UP'})
+})
+document.querySelector(".btn.down").addEventListener('click', (e) => {
+  store.dispatch({type: 'MOVE', direction: 'DOWN'})
+})
+document.querySelector(".btn.left").addEventListener('click', (e) => {
+  store.dispatch({type: 'MOVE', direction: 'LEFT'})
+})
+document.querySelector(".btn.right").addEventListener('click', (e) => {
+  store.dispatch({type: 'MOVE', direction: 'RIGHT'})
 })

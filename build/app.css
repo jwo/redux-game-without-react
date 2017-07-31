@@ -48,3 +48,16 @@ aside {
   border: 1px solid #666666;
   padding: 2em;
 }
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+.buttons .buttons {
+  flex-direction: row;
+}
+.buttons button {
+  width: 100%;
+  display: block;
+  padding: 3em;
+}
