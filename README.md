@@ -14,6 +14,7 @@
 
 * Redux
 * Rexux-saga (for gravity)
+* Webpack 3 (no config)
 * A 10x10 grid for the grid
 
 ### Copyright
