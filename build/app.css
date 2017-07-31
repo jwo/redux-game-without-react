@@ -36,6 +36,10 @@ aside {
 .scenary.brown {
   background: #d35400;
 }
+.scenary.dragon {
+  background: url("dragon.png");
+  background-size: cover;
+}
 .empty {
   border: 1px solid #666666;
   padding: 2em;

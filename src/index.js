@@ -1,23 +1,13 @@
+import 'babel-polyfill'
 // import redux
-import {createStore} from 'redux';
-// create a store with default grid
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import {gravity} from './gravity'
 
-const emptyGrid = (gridSize) => {
-  const rows = []
-  for (var i = 0; i < gridSize; i++) {
-    const columns = []
-    for (var k = 0; k < gridSize; k++) {
-      columns[k] = {filled: false}
-    }
-    rows[i] = columns
-  }
-  return rows;
-}
-const initialGrid = () => {
-  const grid = emptyGrid(10)
-  grid[1][grid.length-1].filled = true
-  return grid
-}
+// create a store with default grid
+import {initialGrid, canMoveTo} from './grid'
+
+
 const reducer = (state=initialGrid(), action) => {
 
   let currentPosition = false;
@@ -34,8 +24,34 @@ const reducer = (state=initialGrid(), action) => {
   let newY = originalY
 
   switch (action.type) {
+    case 'GRAVITY':
+      if (originalY <= state.length){
+        newY++
+
+        if (canMoveTo({state,x:newX,y:newY})){
+          state[originalX][originalY].filled = false
+          state[newX][newY].filled = true
+        }
+
+      }
+    break;
     case 'ADD':
-      if (action.name === 'TREE'){
+      if (action.name === 'DRAGON'){
+        let found = false
+        while(found !== true){
+
+          const randomX = Math.floor(Math.random()*state.length);
+          const randomY = Math.floor(Math.random()*state.length);
+
+          if (canMoveTo({state,x:randomX,y:randomY})){
+            state[randomX][randomY].color = 'dragon'
+            found = true
+          }
+
+        }
+
+
+      } else if (action.name === 'TREE'){
         state[5][state.length-1].color = 'brown'
         state[5][state.length-2].color = 'brown'
         state[5][state.length-3].color = 'brown'
@@ -75,6 +91,12 @@ const reducer = (state=initialGrid(), action) => {
       if (canMoveTo({state,x:newX,y:newY})){
         state[originalX][originalY].filled = false
         state[newX][newY].filled = true
+
+
+        if (state[newX][newY].color === 'dragon'){
+          state[newX][newY].color = false
+          alert("You won!")
+        }
       }
     break
   }
@@ -82,16 +104,16 @@ const reducer = (state=initialGrid(), action) => {
   return state
 }
 
-const canMoveTo = ({state,x,y} )=> {
-  if ((x < 0) || (y < 0)){
-    return false
-  }
-  if ((x >= state.length) || (y >= state.length)){
-    return false
-  }
-  return state[x][y].filled !== true && !state[x][y].color
-}
-var store = createStore(reducer)
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware()
+// mount it on the Store
+const store = createStore(
+  reducer,
+  applyMiddleware(sagaMiddleware)
+)
+
+// then run the saga
+sagaMiddleware.run(gravity)
 
 // have a render function to show the grid
 const root = document.querySelector("#root")
@@ -119,6 +141,7 @@ render()
 store.dispatch({ type: 'ADD', name: 'TREE' })
 store.dispatch({ type: 'ADD', name: 'CLOUD' })
 store.dispatch({ type: 'ADD', name: 'SUN' })
+store.dispatch({ type: 'ADD', name: 'DRAGON' })
 
 
 // setup the up/right/left/down keystroke
