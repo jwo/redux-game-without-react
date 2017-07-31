@@ -11,7 +11,7 @@ export const emptyGrid = (gridSize) => {
 }
 export const initialGrid = () => {
   const grid = emptyGrid(10)
-  grid[1][grid.length-1].filled = true
+  grid[6][3].filled = true
   return grid
 }
 

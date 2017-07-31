@@ -40,6 +40,10 @@ aside {
   background: url("dragon.png");
   background-size: cover;
 }
+.scenary.fireworks {
+  background: url("fireworks.png");
+  background-size: cover;
+}
 .empty {
   border: 1px solid #666666;
   padding: 2em;

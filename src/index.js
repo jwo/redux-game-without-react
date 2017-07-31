@@ -92,9 +92,8 @@ const reducer = (state=initialGrid(), action) => {
         state[originalX][originalY].filled = false
         state[newX][newY].filled = true
 
-
         if (state[newX][newY].color === 'dragon'){
-          state[newX][newY].color = false
+          state[newX][newY].color = 'fireworks'
           alert("You won!")
         }
       }
