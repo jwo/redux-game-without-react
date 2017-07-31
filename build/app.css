@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Press Start 2P', cursive;
+}
+.wrapper {
+  display: flex;
+}
+aside {
+  padding: 0 2em;
+
+}
+
+.rows {
+  display: flex;
+}
+.filled {
+  border: 1px solid #666666;
+  padding: 2em;
+  background: url("wizard.png");
+  background-size: cover;
+}
+.scenary {
+  border: 1px solid #666666;
+  padding: 2em;
+}
+.scenary.green {
+  background: #2ecc71;
+}
+.scenary.cloud {
+  background: #bdc3c7;
+}
+.scenary.yellow {
+  background: #f1c40f;
+}
+.scenary.brown {
+  background: #d35400;
+}
+.empty {
+  border: 1px solid #666666;
+  padding: 2em;
+}
